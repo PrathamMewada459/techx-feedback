@@ -61,6 +61,17 @@
                 0px 0px 5px rgba(235, 213, 179, 0.2);
         }
         
+        /* Carved wrapper for the main logo image */
+        .carved-image-wrapper {
+            border-radius: 12px;
+            box-shadow: 
+                inset 6px 8px 18px rgba(0, 0, 0, 0.95), 
+                inset -2px -2px 6px rgba(255, 255, 255, 0.05),
+                0px 1px 1px rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2%;
+        }
+        
         select.carved-input option {
             background-color: #3c2d1e;
             color: #ebd5b3;
@@ -179,8 +190,10 @@
                 
                 <!-- Header -->
                 <div class="text-center mb-2 md:mb-10 w-full">
-                    <img src="techx feedback.png" alt="TechX Feedback" class="w-full max-w-[85%] sm:max-w-[90%] md:max-w-[95%] lg:max-w-full mx-auto mb-0 mix-blend-multiply opacity-90 hover:opacity-100 transition-opacity duration-300">
-                    <p class="text-xl md:text-3xl font-['Caveat'] font-bold tracking-widest subtitle-text -mt-6 sm:mt-0 relative z-10">
+                    <div class="carved-image-wrapper mx-auto w-full max-w-[85%] sm:max-w-[90%] md:max-w-[95%] lg:max-w-full mb-0">
+                        <img src="techx feedback.png" alt="TechX Feedback" class="w-full mix-blend-multiply opacity-90 hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                    <p class="text-xl md:text-3xl font-['Caveat'] font-bold tracking-widest subtitle-text -mt-4 sm:mt-0 relative z-10">
                         Please enter your details to continue
                     </p>
                 </div>
