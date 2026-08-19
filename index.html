@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechX Feedback Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Cinzel', serif;
+        }
+        .stone-tablet {
+            background-image: url('stone .png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .btn-portal {
+            background-image: url('portal button.png');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        /* Carved Inputs Styling */
+        .carved-input {
+            background: rgba(30, 20, 10, 0.3); /* Darkened background */
+            box-shadow: 
+                inset 4px 6px 12px rgba(0, 0, 0, 0.9), 
+                inset -2px -2px 6px rgba(255, 255, 255, 0.05),
+                0px 1px 1px rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-top: 1px solid rgba(0,0,0,0.9);
+            border-left: 1px solid rgba(0,0,0,0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            border-right: 1px solid rgba(255,255,255,0.03);
+            color: #ebd5b3; /* Lighter gold text for readability */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .carved-input::placeholder, .carved-input:invalid {
+            color: rgba(235, 213, 179, 0.5);
+        }
+        
+        .carved-input:focus {
+            background: rgba(30, 20, 10, 0.4);
+            box-shadow: 
+                inset 5px 8px 15px rgba(0, 0, 0, 0.95),
+                inset -2px -2px 6px rgba(255, 255, 255, 0.05),
+                0px 0px 5px rgba(235, 213, 179, 0.2);
+        }
+        
+        select.carved-input option {
+            background-color: #3c2d1e;
+            color: #ebd5b3;
+        }
+        
+        /* Dropdown custom arrow matching lighter font */
+        select.carved-input {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23ebd5b3" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1.5rem center;
+            background-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Title styling */
+        .title-text {
+            color: #3b2f22;
+            text-shadow: 
+                -1px -1px 0 rgba(255,255,255,0.1), 
+                1px 1px 0 rgba(0,0,0,0.6),
+                3px 3px 6px rgba(0,0,0,0.4);
+        }
+        
+        .title-highlight {
+            color: #d4af37;
+            text-shadow: 
+                -1px -1px 0 rgba(255,255,255,0.3), 
+                1px 1px 0 rgba(0,0,0,0.8),
+                2px 2px 5px rgba(0,0,0,0.6);
+        }
+        
+        .subtitle-text {
+            color: #2b1f14;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.2);
+        }
+
+        /* Shake Animation */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .error-shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            event.preventDefault();
+            const inputs = document.querySelectorAll('.validate-me');
+            const emailNote = document.getElementById('email-error-note');
+            let hasError = false;
+            
+            // Reset email note
+            emailNote.classList.add('hidden');
+            
+            inputs.forEach(input => {
+                // Reset animation state
+                input.classList.remove('error-shake');
+                void input.offsetWidth; // Trigger reflow to allow re-animating immediately
+                
+                if (!input.value) {
+                    input.classList.add('error-shake');
+                    hasError = true;
+                } else if (input.type === 'email') {
+                    // Check for @ and .
+                    if (!input.value.includes('@') || !input.value.includes('.')) {
+                        input.classList.add('error-shake');
+                        emailNote.classList.remove('hidden');
+                        hasError = true;
+                    }
+                }
+            });
+            
+            if (!hasError) {
+                alert('Portal Entered!');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const emailNote = document.getElementById('email-error-note');
+            
+            document.querySelectorAll('.validate-me').forEach(input => {
+                input.addEventListener('input', () => {
+                    input.classList.remove('error-shake');
+                    if (input.type === 'email' && input.value.includes('@') && input.value.includes('.')) {
+                        emailNote.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body class="min-h-screen flex items-center justify-center p-2 sm:p-4">
+    <!-- Main Container Wrapper -->
+    <div class="relative w-full max-w-4xl flex justify-center items-center mt-4 md:mt-10">
+        
+        <!-- The Stone Tablet -->
+        <div class="stone-tablet relative w-full max-w-[800px] flex flex-col items-center justify-start pt-10 sm:pt-20 pb-12 sm:pb-16 px-4 sm:px-16 drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] z-10">
+            
+            <!-- Map and Compass - Visible on all screens, resized for mobile -->
+            <div class="flex absolute -left-8 sm:-left-20 top-12 sm:top-32 z-20 flex-col items-start pointer-events-none transform -rotate-6">
+                <img src="map.png" class="w-24 sm:w-48 drop-shadow-[0_5px_10px_rgba(0,0,0,0.6)]" alt="Map">
+                <img src="compass.png" class="w-16 sm:w-28 mt-[-2rem] sm:mt-[-4rem] ml-4 sm:ml-8 drop-shadow-xl z-30" alt="Compass">
+            </div>
+
+            <!-- Photo and Coins - Visible on all screens, resized for mobile -->
+            <img src="photo.png" class="block absolute -right-6 sm:-right-4 bottom-10 sm:bottom-24 w-24 sm:w-40 z-20 rotate-[15deg] drop-shadow-[0_10px_15px_rgba(0,0,0,0.6)] pointer-events-none" alt="Photo">
+            <img src="coins.png" class="block absolute right-2 sm:right-0 bottom-4 sm:bottom-10 w-20 sm:w-32 z-30 drop-shadow-md pointer-events-none" alt="Coins">
+            
+            <!-- Form Area inside the tablet (Properly Centered) -->
+            <div class="w-full max-w-md md:max-w-lg flex flex-col items-center relative z-30 mx-auto">
+                
+                <!-- Header -->
+                <div class="text-center mb-2 md:mb-10 w-full">
+                    <img src="techx feedback.png" alt="TechX Feedback" class="w-full max-w-[85%] sm:max-w-[80%] md:max-w-[75%] mx-auto mb-0 drop-shadow-md">
+                    <p class="text-xl md:text-3xl font-['Caveat'] font-bold tracking-widest subtitle-text -mt-6 sm:mt-0 relative z-10">
+                        Please enter your details to continue
+                    </p>
+                </div>
+                
+                <!-- Form Inputs -->
+                <form class="w-[85%] sm:w-full flex flex-col gap-3 md:gap-6" onsubmit="validateForm(event)" novalidate>
+                    
+                    <!-- Name Input Container -->
+                    <div class="w-full">
+                        <input type="text" placeholder="Name..." class="validate-me carved-input w-full h-14 md:h-20 px-6 md:px-8 text-xl md:text-3xl font-bold">
+                    </div>
+                    
+                    <!-- Department Select Container -->
+                    <div class="w-full">
+                        <select id="dept-select" class="validate-me carved-input w-full h-14 md:h-20 px-6 md:px-8 text-lg md:text-2xl font-bold" required>
+                            <option value="" disabled selected hidden>Select Department...</option>
+                            <option value="COMPS">COMPS</option>
+                            <option value="AIDS">AIDS</option>
+                            <option value="CSEDS">CSEDS</option>
+                            <option value="IT">IT</option>
+                            <option value="EXTC">EXTC</option>
+                            <option value="VLSI">VLSI</option>
+                            <option value="MECH">MECH</option>
+                            <option value="MMS">MMS</option>
+                            <option value="CIVIL">CIVIL</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Email Input Container -->
+                    <div class="w-full flex flex-col">
+                        <input type="email" placeholder="Email..." class="validate-me carved-input w-full h-14 md:h-20 px-6 md:px-8 text-xl md:text-3xl font-bold">
+                        <p id="email-error-note" class="hidden text-[#4a3b2c] font-bold mt-2 ml-2 drop-shadow-sm font-['Caveat'] text-xl">Please include '@' and '.' in your email address.</p>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <!-- Shifted upwards slightly using mt-2 instead of mt-6 -->
+                    <div class="flex justify-center mt-2 w-full">
+                        <button type="submit" class="btn-portal h-16 md:h-24 w-56 md:w-80 transition-transform duration-300 transform hover:scale-105 active:scale-95 drop-shadow-[0_10px_15px_rgba(0,0,0,0.5)] focus:outline-none focus:ring-4 focus:ring-yellow-700/50 rounded-xl">
+                            <span class="sr-only">Enter Portal</span>
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
